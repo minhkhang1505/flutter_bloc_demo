@@ -29,8 +29,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     ClearData event,
     Emitter<HomeState> emit,
   ) async {
-    emit(state.copyWith(status: FoodStatus.loading));
-
     final clearItems = await foodRepository.clearData();
 
     if (clearItems.isEmpty) {

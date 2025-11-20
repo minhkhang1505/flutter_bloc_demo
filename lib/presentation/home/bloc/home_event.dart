@@ -1,4 +1,5 @@
-abstract class HomeEvent {}
+abstract class HomeEvent {
+}
 
 class GetData extends HomeEvent {}
 

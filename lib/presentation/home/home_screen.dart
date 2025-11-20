@@ -14,7 +14,23 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeBloc = context.read<HomeBloc>();
 
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        switch (state.status) {
+          case FoodStatus.success:
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Load data successful')),
+            );
+            break;
+          case FoodStatus.failure:
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(const SnackBar(content: Text('Load data failed')));
+            break;
+          default:
+            break;
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           backgroundColor: Colors.white,
@@ -25,19 +41,19 @@ class HomeScreen extends StatelessWidget {
           ),
 
           body: SafeArea(
-            child:
-                state.status == FoodStatus.initial ||
-                    (state.status == FoodStatus.success &&
-                        state.foodItems.isEmpty)
-                ? const EmptyStateWidget()
-                : state.status == FoodStatus.loading
-                ? const Center(child: CircularProgressIndicator())
-                : state.status == FoodStatus.success &&
-                      state.foodItems.isNotEmpty
-                ? FoodListWidget(items: state.foodItems)
-                : state.status == FoodStatus.failure
-                ? const Center(child: Text('Failed to load data'))
-                : const SizedBox.shrink(),
+            child: switch (state.status) {
+              FoodStatus.initial => const EmptyStateWidget(),
+              FoodStatus.loading => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              FoodStatus.success =>
+                state.foodItems.isEmpty
+                    ? const EmptyStateWidget()
+                    : FoodListWidget(items: state.foodItems),
+              FoodStatus.failure => const Center(
+                child: Text('Failed to load data'),
+              ),
+            },
           ),
 
           bottomNavigationBar: ActionButton(
