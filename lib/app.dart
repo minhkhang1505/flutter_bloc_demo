@@ -1,3 +1,4 @@
+import 'package:bloc_demo/data/repository/food_repository.dart';
 import 'package:bloc_demo/presentation/home/bloc/home_bloc.dart';
 import 'package:bloc_demo/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => HomeBloc(),
-        child: const HomeScreen(),
+      home: RepositoryProvider(
+        create: (context) => FoodRepositoryImpl(),
+        child: BlocProvider(
+          create: (context) => HomeBloc(context.read<FoodRepositoryImpl>()),
+          child: const HomeScreen(),
+        ),
       ),
     );
   }

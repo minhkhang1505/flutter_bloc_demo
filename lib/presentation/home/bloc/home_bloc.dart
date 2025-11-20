@@ -1,24 +1,50 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_demo/data/repository/food_repository.dart';
 import 'package:bloc_demo/presentation/home/bloc/home_event.dart';
 import 'package:bloc_demo/presentation/home/bloc/home_state.dart';
-import 'package:bloc_demo/data/mock_data_local.dart';
+import 'package:flutter/widgets.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(FoodDataState([])) {
-    on<GetData>((event, emit) async {
-      emit(HomeLoadingState(true));
-      await Future.delayed(const Duration(seconds: 2));
-      emit(FoodDataState(mockFoodData));
-    });
+  final FoodRepository foodRepository;
 
-    on<ClearData>((event, emit) {
-      emit(FoodDataState([]));
-    });
+  HomeBloc(this.foodRepository) : super(HomeState()) {
+    on<GetData>((event, emit) => _handleGetData(event, emit));
+
+    on<ClearData>((event, emit) => _handleClearData(event, emit));
+  }
+
+  Future<void> _handleGetData(GetData event, Emitter<HomeState> emit) async {
+    emit(state.copyWith(status: FoodStatus.loading));
+
+    final foodItems = await foodRepository.getFoodData();
+
+    if (foodItems.isNotEmpty) {
+      emit(state.copyWith(status: FoodStatus.success, foodItems: foodItems));
+    } else {
+      emit(state.copyWith(status: FoodStatus.failure));
+    }
+  }
+
+  Future<void> _handleClearData(
+    ClearData event,
+    Emitter<HomeState> emit,
+  ) async {
+    emit(state.copyWith(status: FoodStatus.loading));
+
+    final clearItems = await foodRepository.clearData();
+
+    if (clearItems.isEmpty) {
+      emit(state.copyWith(status: FoodStatus.success, foodItems: clearItems));
+    } else {
+      emit(state.copyWith(status: FoodStatus.failure));
+    }
   }
 
   @override
   void onTransition(Transition<HomeEvent, HomeState> transition) {
-    print(transition);
+    debugPrint(
+      "Event: ${transition.event} \n Current State: ${transition.currentState} \n Next State: ${transition.nextState}",
+    );
     super.onTransition(transition);
   }
 }

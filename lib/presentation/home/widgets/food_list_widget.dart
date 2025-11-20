@@ -3,7 +3,7 @@ import 'package:bloc_demo/presentation/home/widgets/item.dart';
 import 'package:bloc_demo/data/model/food_model.dart';
 
 class FoodListWidget extends StatelessWidget {
-  final List<FoodModel> items;
+  final List<Food> items;
   const FoodListWidget({super.key, required this.items});
 
   @override

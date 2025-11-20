@@ -23,25 +23,27 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
           ),
-  
+
           body: SafeArea(
-            child: switch (state) {
-              HomeLoadingState(:final isLoading) =>
-                isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : const SizedBox.shrink(),
-              FoodDataState(:final foodItems) =>
-                foodItems.isEmpty
-                    ? const EmptyStateWidget()
-                    : FoodListWidget(items: foodItems),
-              _ => const SizedBox.shrink(),
-            },
+            child:
+                state.status == FoodStatus.initial ||
+                    (state.status == FoodStatus.success &&
+                        state.foodItems.isEmpty)
+                ? const EmptyStateWidget()
+                : state.status == FoodStatus.loading
+                ? const Center(child: CircularProgressIndicator())
+                : state.status == FoodStatus.success &&
+                      state.foodItems.isNotEmpty
+                ? FoodListWidget(items: state.foodItems)
+                : state.status == FoodStatus.failure
+                ? const Center(child: Text('Failed to load data'))
+                : const SizedBox.shrink(),
           ),
 
           bottomNavigationBar: ActionButton(
-            hasData: state is FoodDataState && state.foodItems.isNotEmpty,
+            hasData: state.foodItems.isNotEmpty,
             onPressed: () {
-              if (state is FoodDataState && state.foodItems.isNotEmpty) {
+              if (state.foodItems.isNotEmpty) {
                 homeBloc.add(ClearData());
               } else {
                 homeBloc.add(GetData());

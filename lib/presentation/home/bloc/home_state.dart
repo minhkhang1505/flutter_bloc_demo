@@ -1,15 +1,24 @@
 import 'package:bloc_demo/data/model/food_model.dart';
+import 'package:equatable/equatable.dart';
 
-abstract class HomeState {}
+enum FoodStatus { initial, loading, success, failure }
 
-class FoodDataState extends HomeState {
-  final List<FoodModel> foodItems;
+class HomeState extends Equatable {
+  final FoodStatus status;
+  final List<Food> foodItems;
 
-  FoodDataState(this.foodItems);
-}
+  const HomeState({
+    this.status = FoodStatus.initial,
+    this.foodItems = const [],
+  });
 
-class HomeLoadingState extends HomeState {
-  final bool isLoading;
+  HomeState copyWith({FoodStatus? status, List<Food>? foodItems}) {
+    return HomeState(
+      status: status ?? this.status,
+      foodItems: foodItems ?? this.foodItems,
+    );
+  }
 
-  HomeLoadingState(this.isLoading);
+  @override
+  List<Object> get props => [status, foodItems];
 }
