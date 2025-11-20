@@ -17,8 +17,13 @@ class HomeScreen extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(title: const Text('BloC Demo')),
-          
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: const Text('BloC Demo'),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+          ),
+  
           body: SafeArea(
             child: switch (state) {
               HomeLoadingState(:final isLoading) =>

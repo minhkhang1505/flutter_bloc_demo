@@ -8,8 +8,6 @@ class FoodDataState extends HomeState {
   FoodDataState(this.foodItems);
 }
 
-class HomeInitialState extends HomeState {}
-
 class HomeLoadingState extends HomeState {
   final bool isLoading;
 

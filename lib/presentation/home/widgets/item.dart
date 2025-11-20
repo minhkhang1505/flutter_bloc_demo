@@ -17,12 +17,24 @@ class Item extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
+        color: const Color.fromARGB(255, 0, 159, 238).withAlpha(10),
+        border: Border.all(
+          color: const Color.fromARGB(255, 0, 159, 238).withAlpha(50),
+          width: 1.5,
+        ),
       ),
       child: Row(
         children: [
-          Image.asset(imageUrl, width: 64, height: 64, fit: BoxFit.cover),
-          const SizedBox(width: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.asset(
+              imageUrl,
+              width: 64,
+              height: 64,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -39,6 +51,7 @@ class Item extends StatelessWidget {
                 style: const TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 13,
+                  color: Colors.grey,
                 ),
               ),
             ],
