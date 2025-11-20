@@ -6,9 +6,14 @@ class EmptyStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        'No items available',
-        style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'No items available',
+            style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+          ),
+        ],
       ),
     );
   }

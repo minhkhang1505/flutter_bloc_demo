@@ -1,9 +1,17 @@
+import 'package:bloc_demo/data/model/food_model.dart';
+
 abstract class HomeState {}
 
-class LoadingState extends HomeState {}
+class FoodDataState extends HomeState {
+  final List<FoodModel> foodItems;
 
-class RefreshState extends HomeState {}
+  FoodDataState(this.foodItems);
+}
 
-class FailureState extends HomeState {}
+class HomeInitialState extends HomeState {}
 
-class SuccessState extends HomeState {}
+class HomeLoadingState extends HomeState {
+  final bool isLoading;
+
+  HomeLoadingState(this.isLoading);
+}
