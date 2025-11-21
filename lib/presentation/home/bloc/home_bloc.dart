@@ -16,12 +16,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _handleGetData(GetData event, Emitter<HomeState> emit) async {
     emit(state.copyWith(status: FoodStatus.loading));
 
-    final foodItems = await foodRepository.getFoodData();
+    try {
+      final foodItems = await foodRepository.getFoodData();
 
-    if (foodItems.isNotEmpty) {
       emit(state.copyWith(status: FoodStatus.success, foodItems: foodItems));
-    } else {
-      emit(state.copyWith(status: FoodStatus.failure));
+    } catch (e) {
+      // Handle exception - emit failure state
+      emit(state.copyWith(status: FoodStatus.failure, foodItems: []));
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:bloc_demo/presentation/home/bloc/home_state.dart';
 import 'package:bloc_demo/presentation/home/bloc/home_event.dart';
 import 'package:bloc_demo/presentation/home/widgets/empty_state_widget.dart';
 import 'package:bloc_demo/presentation/home/widgets/fail_state.dart';
+import 'package:bloc_demo/presentation/home/widgets/failure_state.dart';
 import 'package:bloc_demo/presentation/home/widgets/food_list_widget.dart';
 import 'package:bloc_demo/presentation/home/widgets/action_button.dart';
 import 'package:bloc_demo/presentation/home/widgets/loading_indicator_state.dart';
@@ -48,19 +49,17 @@ class HomeScreen extends StatelessWidget {
               FoodStatus.initial => const EmptyStateWidget(),
               FoodStatus.loading => const LoadingIndicatorState(),
               FoodStatus.success => SuccessState(state: state),
-              FoodStatus.failure => const FailState(),
+              FoodStatus.failure => const FailureState(),
             },
           ),
 
-          bottomNavigationBar: ActionButton(
-            hasData: state.foodItems.isNotEmpty,
-            onPressed: () {
-              if (state.foodItems.isNotEmpty) {
-                homeBloc.add(ClearData());
-              } else {
+          bottomNavigationBar: SafeArea(
+            child: ActionButton(
+              hasData: state.foodItems.isNotEmpty,
+              onPressed: () {
                 homeBloc.add(GetData());
-              }
-            },
+              },
+            ),
           ),
         );
       },

@@ -9,8 +9,6 @@ class SuccessState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return state.foodItems.isEmpty
-        ? const EmptyStateWidget()
-        : FoodListWidget(items: state.foodItems);
+    return FoodListWidget(items: state.foodItems);
   }
 }

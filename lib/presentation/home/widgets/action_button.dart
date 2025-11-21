@@ -24,7 +24,7 @@ class ActionButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         ),
         child: Text(
-          hasData ? 'Clear All Data' : 'Load Data',
+          hasData ? 'Reload Data' : 'Load Data',
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,

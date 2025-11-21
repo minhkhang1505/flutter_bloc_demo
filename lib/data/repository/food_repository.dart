@@ -7,20 +7,27 @@ abstract class FoodRepository {
 }
 
 class FoodRepositoryImpl implements FoodRepository {
+  bool _shouldFail = true;
 
   @override
   Future<List<Food>> getFoodData() async {
-    // Simulate network delay
     await Future.delayed(const Duration(seconds: 2));
-    // Return mock data
-    return mockFoodData;
+    _shouldFail = !_shouldFail; // Toggle status each call
+
+    if (_shouldFail) {
+      // Simulate failure
+      throw Exception('Failed to load food data');
+    } else {
+      // Success
+      return mockFoodData;
+    }
   }
 
   @override
   Future<List<Food>> clearData() async {
     // Simulate clearing data delay
     await Future.delayed(const Duration(seconds: 1));
-    // In a real implementation, this would clear data from a database or API
+
     return [];
   }
 }
