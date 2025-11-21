@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:bloc_demo/presentation/home/widgets/item.dart';
+import 'package:bloc_demo/presentation/home/widgets/food_item.dart';
 import 'package:bloc_demo/data/model/food_model.dart';
 
-class FoodListWidget extends StatelessWidget {
+class FoodItemList extends StatelessWidget {
   final List<Food> items;
-  const FoodListWidget({super.key, required this.items});
+  const FoodItemList({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class FoodListWidget extends StatelessWidget {
         final item = items[index];
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Item(
+          child: FoodItem(
             title: item.name,
             description: item.description,
             imageUrl: item.imageUrl,

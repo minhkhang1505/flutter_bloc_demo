@@ -4,8 +4,8 @@ import 'package:bloc_demo/presentation/home/bloc/home_event.dart';
 import 'package:bloc_demo/presentation/home/widgets/empty_state_widget.dart';
 import 'package:bloc_demo/presentation/home/widgets/fail_state.dart';
 import 'package:bloc_demo/presentation/home/widgets/failure_state.dart';
-import 'package:bloc_demo/presentation/home/widgets/food_list_widget.dart';
-import 'package:bloc_demo/presentation/home/widgets/action_button.dart';
+import 'package:bloc_demo/presentation/home/widgets/food_item_list.dart';
+import 'package:bloc_demo/presentation/home/widgets/load_data_button.dart';
 import 'package:bloc_demo/presentation/home/widgets/loading_indicator_state.dart';
 import 'package:bloc_demo/presentation/home/widgets/success_state.dart';
 import 'package:flutter/material.dart';
@@ -54,11 +54,9 @@ class HomeScreen extends StatelessWidget {
           ),
 
           bottomNavigationBar: SafeArea(
-            child: ActionButton(
-              hasData: state.foodItems.isNotEmpty,
-              onPressed: () {
-                homeBloc.add(GetData());
-              },
+            child: LoadDataButton(
+              hasData: state.status != FoodStatus.failure,
+              onPressed: () => homeBloc.add(GetData()),
             ),
           ),
         );

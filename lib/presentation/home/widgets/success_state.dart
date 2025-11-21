@@ -1,6 +1,5 @@
 import 'package:bloc_demo/presentation/home/bloc/home_state.dart';
-import 'package:bloc_demo/presentation/home/widgets/empty_state_widget.dart';
-import 'package:bloc_demo/presentation/home/widgets/food_list_widget.dart';
+import 'package:bloc_demo/presentation/home/widgets/food_item_list.dart';
 import 'package:flutter/material.dart';
 
 class SuccessState extends StatelessWidget {
@@ -9,6 +8,6 @@ class SuccessState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FoodListWidget(items: state.foodItems);
+    return FoodItemList(items: state.foodItems);
   }
 }

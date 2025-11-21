@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Item extends StatelessWidget {
+class FoodItem extends StatelessWidget {
   final String title;
   final String description;
   final String imageUrl;
-  const Item({
+  const FoodItem({
     super.key,
     required this.title,
     required this.description,

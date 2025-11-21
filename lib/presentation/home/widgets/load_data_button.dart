@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ActionButton extends StatelessWidget {
+class LoadDataButton extends StatelessWidget {
   final bool hasData;
   final VoidCallback onPressed;
-  const ActionButton({
+  const LoadDataButton({
     super.key,
     required this.hasData,
     required this.onPressed,
@@ -24,7 +24,7 @@ class ActionButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         ),
         child: Text(
-          hasData ? 'Reload Data' : 'Load Data',
+          hasData ? 'Load Data' : 'ReLoad Data',
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
