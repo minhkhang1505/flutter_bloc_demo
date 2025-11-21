@@ -1,4 +1,4 @@
-import 'package:bloc_demo/data/mock_data_local.dart';
+import 'package:bloc_demo/data/mock/mock_data_local.dart';
 import 'package:bloc_demo/data/model/food_model.dart';
 
 abstract class FoodRepository {
@@ -7,7 +7,6 @@ abstract class FoodRepository {
 }
 
 class FoodRepositoryImpl implements FoodRepository {
-  FoodRepositoryImpl();
 
   @override
   Future<List<Food>> getFoodData() async {
