@@ -10,7 +10,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this.foodRepository) : super(HomeState()) {
     on<GetData>((event, emit) => _handleGetData(event, emit));
 
-    on<ClearData>((event, emit) => _handleClearData(event, emit));
+    // on<ClearData>((event, emit) => _handleClearData(event, emit));
   }
 
   Future<void> _handleGetData(GetData event, Emitter<HomeState> emit) async {
@@ -26,18 +26,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  Future<void> _handleClearData(
-    ClearData event,
-    Emitter<HomeState> emit,
-  ) async {
-    final clearItems = await foodRepository.clearData();
+  // Future<void> _handleClearData(
+  //   ClearData event,
+  //   Emitter<HomeState> emit,
+  // ) async {
+  //   final clearItems = await foodRepository.clearData();
 
-    if (clearItems.isEmpty) {
-      emit(state.copyWith(status: FoodStatus.success, foodItems: clearItems));
-    } else {
-      emit(state.copyWith(status: FoodStatus.failure));
-    }
-  }
+  //   if (clearItems.isEmpty) {
+  //     emit(state.copyWith(status: FoodStatus.success, foodItems: clearItems));
+  //   } else {
+  //     emit(state.copyWith(status: FoodStatus.failure));
+  //   }
+  // }
 
   @override
   void onTransition(Transition<HomeEvent, HomeState> transition) {
