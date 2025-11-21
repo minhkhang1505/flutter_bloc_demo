@@ -3,7 +3,7 @@ import 'package:bloc_demo/presentation/home/bloc/home_state.dart';
 import 'package:bloc_demo/presentation/home/bloc/home_event.dart';
 import 'package:bloc_demo/presentation/home/widgets/empty_item_widget.dart';
 import 'package:bloc_demo/presentation/home/widgets/fail_state.dart';
-import 'package:bloc_demo/presentation/home/widgets/failure_load_data_widget.dart';
+import 'package:bloc_demo/presentation/home/widgets/failure_widget.dart';
 import 'package:bloc_demo/presentation/home/widgets/food_item_list.dart';
 import 'package:bloc_demo/presentation/home/widgets/load_data_button.dart';
 import 'package:bloc_demo/presentation/home/widgets/loading_indicator_widget.dart';
@@ -27,9 +27,14 @@ class HomeScreen extends StatelessWidget {
             );
             break;
           case FoodStatus.failure:
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(const SnackBar(content: Text('Load data failed')));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'Load data failed',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            );
             break;
           default:
             break;
@@ -42,6 +47,7 @@ class HomeScreen extends StatelessWidget {
             title: const Text('BloC Demo'),
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
+            centerTitle: false,
           ),
 
           body: SafeArea(
