@@ -9,13 +9,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final foodRepository = FoodRepositoryImpl();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      
+
       home: RepositoryProvider(
-        create: (context) => FoodRepositoryImpl(),
+        create: (context) => foodRepository,
         child: BlocProvider(
-          create: (context) => HomeBloc(context.read<FoodRepositoryImpl>()),
+          create: (context) => HomeBloc(foodRepository),
           child: const HomeScreen(),
         ),
       ),

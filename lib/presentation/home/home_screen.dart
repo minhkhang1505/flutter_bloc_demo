@@ -16,22 +16,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeBloc = context.read<HomeBloc>();
-
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
         switch (state.status) {
           case FoodStatus.success:
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Load data successful')),
+              const SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('Load data successful'),
+              ),
             );
             break;
           case FoodStatus.failure:
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
+                backgroundColor: Colors.red,
                 content: Text(
                   'Load data failed',
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             );
@@ -62,7 +64,7 @@ class HomeScreen extends StatelessWidget {
           bottomNavigationBar: SafeArea(
             child: LoadDataButton(
               hasData: state.status != FoodStatus.failure,
-              onPressed: () => homeBloc.add(GetData()),
+              onPressed: () => context.read<HomeBloc>().add(GetData()),
             ),
           ),
         );
