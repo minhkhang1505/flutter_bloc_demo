@@ -1,13 +1,13 @@
 import 'package:bloc_demo/presentation/home/bloc/home_bloc.dart';
 import 'package:bloc_demo/presentation/home/bloc/home_state.dart';
 import 'package:bloc_demo/presentation/home/bloc/home_event.dart';
-import 'package:bloc_demo/presentation/home/widgets/empty_state_widget.dart';
+import 'package:bloc_demo/presentation/home/widgets/empty_item_widget.dart';
 import 'package:bloc_demo/presentation/home/widgets/fail_state.dart';
-import 'package:bloc_demo/presentation/home/widgets/failure_state.dart';
+import 'package:bloc_demo/presentation/home/widgets/failure_load_data_widget.dart';
 import 'package:bloc_demo/presentation/home/widgets/food_item_list.dart';
 import 'package:bloc_demo/presentation/home/widgets/load_data_button.dart';
-import 'package:bloc_demo/presentation/home/widgets/loading_indicator_state.dart';
-import 'package:bloc_demo/presentation/home/widgets/success_state.dart';
+import 'package:bloc_demo/presentation/home/widgets/loading_indicator_widget.dart';
+import 'package:bloc_demo/presentation/home/widgets/success_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,10 +46,10 @@ class HomeScreen extends StatelessWidget {
 
           body: SafeArea(
             child: switch (state.status) {
-              FoodStatus.initial => const EmptyStateWidget(),
-              FoodStatus.loading => const LoadingIndicatorState(),
-              FoodStatus.success => SuccessState(state: state),
-              FoodStatus.failure => const FailureState(),
+              FoodStatus.initial => const EmptyItemWidget(),
+              FoodStatus.loading => const LoadingIndicatorWidget(),
+              FoodStatus.success => SuccessWidget(listItems: state.foodItems),
+              FoodStatus.failure => const FailureWidget(),
             },
           ),
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FailureState extends StatelessWidget {
-  const FailureState({super.key});
+class FailureWidget extends StatelessWidget {
+  const FailureWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
